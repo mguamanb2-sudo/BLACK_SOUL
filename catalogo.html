@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLACK SOUL | Catálogo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.92)), url('banner.jpg') !important;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #ffffff !important;
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ENCABEZADO */
+    header {
+      background-color: rgba(0, 0, 0, 0.95);
+      padding: 15px 7%;
+      border-bottom: 2px solid #e50914;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #cccccc !important;
+      text-decoration: none !important;
+      font-weight: bold !important;
+      font-size: 15px !important;
+      letter-spacing: 1px !important;
+      padding: 8px 18px !important;
+      border-radius: 4px !important;
+      transition: all 0.3s ease !important;
+    }
+
+    nav a:hover {
+      color: #ffffff !important;
+      background-color: rgba(229, 9, 20, 0.25) !important;
+      box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+    }
+
+    nav a.active {
+      color: #ffffff !important;
+      background-color: #e50914 !important;
+      box-shadow: 0 0 12px rgba(229, 9, 20, 0.7);
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .contenido-catalogo {
+      padding: 120px 7% 60px 7%;
+      flex: 1;
+    }
+
+    .titulo-seccion {
+      text-align: center;
+      font-size: 36px;
+      color: #e50914;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    .subtitulo-seccion {
+      text-align: center;
+      color: #aaaaaa;
+      margin-bottom: 40px;
+      font-size: 16px;
+    }
+
+    /* NAVEGACIÓN DE CATEGORÍAS */
+    .categorias-nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 50px;
+    }
+
+    .cat-btn {
+      background-color: rgba(26, 26, 26, 0.9);
+      color: #ffffff;
+      padding: 10px 22px;
+      border: 1px solid #444;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .cat-btn:hover {
+      border-color: #e50914;
+      color: #e50914;
+      transform: translateY(-2px);
+    }
+
+    /* TÍTULOS DE CATEGORÍA */
+    .categoria-titulo {
+      font-size: 24px;
+      color: #ffffff;
+      margin: 40px 0 20px 0;
+      padding-left: 12px;
+      border-left: 4px solid #e50914;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* GRID DE PRODUCTOS */
+    .productos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      margin-bottom: 50px;
+    }
+
+    .producto-card {
+      background-color: rgba(26, 26, 26, 0.92);
+      border: 1px solid #333333;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .producto-card:hover {
+      transform: translateY(-5px);
+      border-color: #e50914;
+    }
+
+    .producto-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+
+    .producto-card h4 {
+      font-size: 18px;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .producto-card p {
+      font-size: 13px;
+      color: #bbbbbb;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+
+    .precio {
+      color: #e50914;
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .boton-comprar {
+      display: inline-block;
+      background-color: #e50914;
+      color: #ffffff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+
+    .boton-comprar:hover {
+      background-color: #b20710;
+    }
+
+    footer {
+      background-color: #000000 !important;
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      color: #666666 !important;
+      border-top: 1px solid #141414;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO -->
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="catalogo.html" class="active">Catálogo</a>
+      <a href="login.html">Iniciar sesión</a>
+      <a href="contactame.html">Contactos</a>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO DEL CATÁLOGO POR CATEGORÍAS -->
+  <main class="contenido-catalogo">
+    <h2 class="titulo-seccion">CATÁLOGO BLACK SOUL</h2>
+    <p class="subtitulo-seccion">Moda alternativa, ropa y accesorios inspirados en el Rock & Heavy Metal.</p>
+
+    <!-- NAVEGACIÓN RÁPIDA -->
+    <div class="categorias-nav">
+      <a href="#camisetas" class="cat-btn"><i class="fa-solid fa-shirt"></i> Camisetas</a>
+      <a href="#chaquetas" class="cat-btn"><i class="fa-solid fa-vest"></i> Chaquetas</a>
+      <a href="#pantalones" class="cat-btn"><i class="fa-solid fa-socks"></i> Calzado & Pantalones</a>
+      <a href="#accesorios" class="cat-btn"><i class="fa-solid fa-gem"></i> Accesorios</a>
+    </div>
+
+    <!-- CATEGORÍA 1: CAMISETAS -->
+    <h3 id="camisetas" class="categoria-titulo">Camisetas & Tops</h3>
+    <div class="productos-grid">
+      <div class="producto-card">
+        <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500" alt="Camiseta Rock Classic">
+        <h4>Camiseta Rock Classic</h4>
+        <p>100% algodón negro con estampado Vintage de alta calidad.</p>
+        <span class="precio">$22.00</span>
+        <a href="#" class="boton-comprar">Comprar</a>
+      </div>
+      <div class="producto-card">
+        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500" alt="Camiseta Heavy Skull">
+        <h4>Camiseta Heavy Skull</h4>
+        <p>Corte entallado unisex con diseño gráfico rockero.</p>
+        <span class="precio">$25.00</span>
+        <a href="#" class="boton-comprar">Comprar</a>
+      </div>
+      <div class="producto-card">
+        <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500" alt="Top Biker Metal">
+        <h4>Top Biker Metal</h4>
+        <p>Top sin mangas ajuste cómodo ideal para conciertos.</p>
+        <span class="precio">$20.00</span>
+        <a href="#" class="boton-comprar">Comprar</a>
+      </div>
+    </div>
+
+    <!-- CATEGORÍA 2: CHAQUETAS -->
+    <h3 id="chaquetas" class="categoria-titulo">Chaquetas & Abrigos</h3>
+    <div class="productos-grid">
+      <div class="producto-card">
+        <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500" alt="Chaqueta Cuero Biker">
+        <h4>Chaqueta Cuero Biker</h4>
+        <p>Cuero sintético premium con cierres metálicos y forro interior.</p>
+        <span class="precio">$95.00</span>
+        <a href="#" class="boton-comprar">Comprar</a>
+      </div>
+      <div class="producto-card">
+        <img src="https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=500" alt="Chaqueta Denim Rock">
+        <h4>Chaqueta Denim Rock</h4>
+        <p>Chaqueta de mezclilla estilo cazadora rockera.</p>
+        <span class="precio">$70.00</span>
+        <a href="#" class="boton-comprar">Comprar</a>
+      </div>
+      <div class="producto-card">
+        <img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=500" alt="Chaleco Heavy Metal">
+        <h4>Chaleco Heavy Metal</h4>
+        <p>Chaleco de cuero oscuro perfecto para combinar con parches.</p>
+        <span class="precio">$60.00</span>
+        <a href="#" class="boton-comprar">Comprar</a>
+      </div>
+    </div>
+
+    <!-- CATEGORÍA 3: PANTALONES Y CALZADO -->
+    <h3 id="pantalones" class="categoria-titulo">Pantalones & Calzado</h3>
+    <div class="productos-grid">
+      <div class="producto-card">
+        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500" alt="Jeans Black Ripped">
+        <h4>Jeans Black Ripped</h4>
+        <p>Jeans ajustados negros con desgastado estilo rock urbano.</p>
+        <span class="precio">$45.00</span>
+        <a href="#" class="boton-comprar">Comprar</a>
+      </div>
+      <div class="producto-card">
+        <img src="https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=500" alt="Botas Combat Metal">
+        <h4>Botas Combat Metal</h4>
+        <p>Botas de cuero estilo militar con suela gruesa antideslizante.</p>
+        <span class="precio">$110.00</span>
+        <a href="#" class="boton-comprar">Comprar</a>
+      </div>
+    </div>
+
+    <!-- CATEGORÍA 4: ACCESORIOS -->
+    <h3 id="accesorios" class="categoria-titulo">Accesorios</h3>
+    <div class="productos-grid">
+      <div class="producto-card">
+        <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500" alt="Pulsera Picos & Remaches">
+        <h4>Pulsera Picos & Remaches</h4>
+        <p>Pulsera de cuero genuino con tachas metálicas.</p>
+        <span class="precio">$12.00</span>
+        <a href="#" class="boton-comprar">Comprar</a>
+      </div>
+      <div class="producto-card">
+        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" alt="Anillo Rocker">
+        <h4>Anillo Silver Skull</h4>
+        <p>Anillo de acero quirúrgico resistente con detalles metálicos.</p>
+        <span class="precio">$18.00</span>
+        <a href="#" class="boton-comprar">Comprar</a>
+      </div>
+      <div class="producto-card">
+        <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500" alt="Gorra Snapback Metal">
+        <h4>Gorra Snapback Black</h4>
+        <p>Gorra bordada negra con visera plana y broche ajustable.</p>
+        <span class="precio">$15.00</span>
+        <a href="#" class="boton-comprar">Comprar</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>© 2026 BLACK SOUL | La música se lleva puesta.</p>
+  </footer>
+
+</body>
+</html>
