@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACK SOUL - Panel Admin</title>
+    <style>
+        body { background-color: #0b0b0b; color: #fff; font-family: Arial, sans-serif; padding: 20px; }
+        .form-container { max-width: 500px; margin: 0 auto; background: #1a1a1a; padding: 20px; border-radius: 8px; border: 1px solid #e50914; }
+        h2 { color: #e50914; text-align: center; }
+        label { display: block; margin-top: 10px; }
+        input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; background: #000; border: 1px solid #444; color: #fff; border-radius: 4px; }
+        button { width: 100%; background: #e50914; color: #fff; padding: 12px; border: none; margin-top: 20px; font-weight: bold; cursor: pointer; border-radius: 4px; }
+        button:hover { background: #b20710; }
+        #mensaje { text-align: center; margin-top: 15px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Panel Admin - BLACK SOUL</h2>
+        <form id="productForm">
+            <label for="nombre">Nombre del Producto:</label>
+            <input type="text" id="nombre" required>
+
+            <label for="categoria">Categoría:</label>
+            <select id="categoria">
+                <option value="Chaquetas">Chaquetas</option>
+                <option value="Camisetas">Camisetas</option>
+                <option value="Calzado">Calzado</option>
+                <option value="Accesorios">Accesorios</option>
+            </select>
+
+            <label for="precio">Precio ($):</label>
+            <input type="number" step="0.01" id="precio" required>
+
+            <label for="imagen">Imagen del Producto:</label>
+            <input type="file" id="imagen" accept="image/*" required>
+
+            <button type="submit" id="btnGuardar">Subir Producto</button>
+        </form>
+        <p id="mensaje"></p>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addfDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
+        // Tu configuración de Firebase
+        const firebaseConfig = {
+          apiKey: "AIzaSyAD7sweEf1vOgG79WB-CqXJKF_iMgwz8Ag",
+          authDomain: "blacksoul82.firebaseapp.com",
+          projectId: "blacksoul82",
+          storageBucket: "blacksoul82.firebasestorage.app",
+          messagingSenderId: "918527095913",
+          appId: "1:918527095913:web:0bd30e974e9bbc6e8e5ef8"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        const form = document.getElementById("productForm");
+        const mensaje = document.getElementById("mensaje");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            mensaje.style.color = "#fff";
+            mensaje.textContent = "Subiendo imagen y guardando producto...";
+
+            const nombre = document.getElementById("nombre").value;
+            const categoria = document.getElementById("categoria").value;
+            const precio = parseFloat(document.getElementById("precio").value);
+            const imagenFile = document.getElementById("imagen").files[0];
+
+            try {
+                // 1. Subir imagen a Firebase Storage
+                const storageRef = ref(storage, 'productos/' + Date.now() + '_' + imagenFile.name);
+                await uploadBytes(storageRef, imagenFile);
+                const imageUrl = await getDownloadURL(storageRef);
+
+                // 2. Guardar datos en Firestore Database
+                await addDoc(collection(db, "productos"), {
+                    nombre: nombre,
+                    categoria: categoria,
+                    precio: precio,
+                    imagen: imageUrl,
+                    fecha: new Date()
+                });
+
+                mensaje.style.color = "#00ff00";
+                mensaje.textContent = "¡Producto subido con éxito al catálogo!";
+                form.reset();
+            } catch (error) {
+                console.error("Error al subir:", error);
+                mensaje.style.color = "#e50914";
+                mensaje.textContent = "Hubo un error al subir el producto.";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -239,7 +239,7 @@
 
     <!-- CATEGORÍA 1: CAMISETAS -->
     <h3 id="camisetas" class="categoria-titulo">Camisetas & Tops</h3>
-    <div class="productos-grid">
+    <div class="productos-grid" id="grid-Camisetas">
       <div class="producto-card">
         <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500" alt="Camiseta Rock Classic">
         <h4>Camiseta Rock Classic</h4>
@@ -265,7 +265,7 @@
 
     <!-- CATEGORÍA 2: CHAQUETAS -->
     <h3 id="chaquetas" class="categoria-titulo">Chaquetas & Abrigos</h3>
-    <div class="productos-grid">
+    <div class="productos-grid" id="grid-Chaquetas">
       <div class="producto-card">
         <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500" alt="Chaqueta Cuero Biker">
         <h4>Chaqueta Cuero Biker</h4>
@@ -291,7 +291,7 @@
 
     <!-- CATEGORÍA 3: PANTALONES Y CALZADO -->
     <h3 id="pantalones" class="categoria-titulo">Pantalones & Calzado</h3>
-    <div class="productos-grid">
+    <div class="productos-grid" id="grid-Calzado">
       <div class="producto-card">
         <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500" alt="Jeans Black Ripped">
         <h4>Jeans Black Ripped</h4>
@@ -310,7 +310,7 @@
 
     <!-- CATEGORÍA 4: ACCESORIOS -->
     <h3 id="accesorios" class="categoria-titulo">Accesorios</h3>
-    <div class="productos-grid">
+    <div class="productos-grid" id="grid-Accesorios">
       <div class="producto-card">
         <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500" alt="Pulsera Picos & Remaches">
         <h4>Pulsera Picos & Remaches</h4>
@@ -339,6 +339,61 @@
   <footer>
     <p>© 2026 BLACK SOUL | La música se lleva puesta.</p>
   </footer>
+
+  <!-- Firebase SDKs y script para cargar productos dinámicamente -->
+  <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+      // Configuración de Firebase de BLACK SOUL
+      const firebaseConfig = {
+        apiKey: "AIzaSyAD7sweEf1vOgG79WB-CqXJKF_iMgwz8Ag",
+        authDomain: "blacksoul82.firebaseapp.com",
+        projectId: "blacksoul82",
+        storageBucket: "blacksoul82.firebasestorage.app",
+        messagingSenderId: "918527095913",
+        appId: "1:918527095913:web:0bd30e974e9bbc6e8e5ef8"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      async function cargarProductosFirebase() {
+          try {
+              const q = query(collection(db, "productos"), orderBy("fecha", "desc"));
+              const querySnapshot = await getDocs(q);
+
+              querySnapshot.forEach((doc) => {
+                  const producto = doc.data();
+
+                  // Identifica en qué grilla colocar el producto según su categoría
+                  let contenedor = document.getElementById(`grid-${producto.categoria}`);
+                  
+                  // Si no encuentra la categoría exacta, lo coloca en la primera grilla disponible
+                  if (!contenedor) {
+                      contenedor = document.querySelector('.productos-grid');
+                  }
+
+                  if (contenedor) {
+                      const card = document.createElement('div');
+                      card.className = 'producto-card';
+                      card.innerHTML = `
+                          <img src="${producto.imagen}" alt="${producto.nombre}">
+                          <h4>${producto.nombre}</h4>
+                          <p>Categoría: ${producto.categoria}</p>
+                          <span class="precio">$${parseFloat(producto.precio).toFixed(2)}</span>
+                          <a href="#" class="boton-comprar">Comprar</a>
+                      `;
+                      contenedor.appendChild(card);
+                  }
+              });
+          } catch (error) {
+              console.error("Error al cargar productos desde Firebase:", error);
+          }
+      }
+
+      window.addEventListener('DOMContentLoaded', cargarProductosFirebase);
+  </script>
 
 </body>
 </html>
