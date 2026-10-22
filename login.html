@@ -149,19 +149,17 @@
 
     <!-- Script de Firebase y lógica de autenticación -->
     <script type="module">
-        // Importar la configuración de Firebase (asegúrate de que tu archivo firebase-config.js o similar esté configurado)
-        // O puedes pegar tu inicialización directamente aquí si lo prefieres:
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // Configuración de tu proyecto Firebase (blacksoul82)
+        // Configuración real con tus credenciales de Firebase (blacksoul82 / BlackSoulWeb)
         const firebaseConfig = {
-            apiKey: "TU_API_KEY", // Reemplaza con tus credenciales de Firebase si no usas archivo externo
+            apiKey: "AIzaSyAD7sweEf1vOgG79WB-CqXJKF_iMgwz8Ag",
             authDomain: "blacksoul82.firebaseapp.com",
             projectId: "blacksoul82",
-            storageBucket: "blacksoul82.appspot.com",
-            messagingSenderId: "TU_SENDER_ID",
-            appId: "TU_APP_ID"
+            storageBucket: "blacksoul82.firebasestorage.app",
+            messagingSenderId: "918527095913",
+            appId: "1:918527095913:web:0bd30e974e9bbc6e8e5ef8"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -210,15 +208,15 @@
                     // Registro de usuario
                     await createUserWithEmailAndPassword(auth, email, password);
                     alert("¡Cuenta creada con éxito!");
-                    window.location.href = "catalogo.html"; // Redirigir al catálogo al registrarse
+                    window.location.href = "catalogo.html";
                 } else {
                     // Inicio de sesión
                     await signInWithEmailAndPassword(auth, email, password);
                     alert("¡Bienvenido de nuevo a BLACK SOUL!");
-                    window.location.href = "catalogo.html"; // Redirigir al catálogo al iniciar sesión
+                    window.location.href = "catalogo.html";
                 }
             } catch (error) {
-                console.p(error.code);
+                console.error(error.code);
                 if (error.code === 'auth/email-already-in-use') {
                     errorMessage.textContent = "Este correo ya está registrado.";
                 } else if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password') {
