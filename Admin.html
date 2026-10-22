@@ -9,10 +9,10 @@
         .form-container { max-width: 500px; margin: 0 auto; background: #1a1a1a; padding: 20px; border-radius: 8px; border: 1px solid #e50914; }
         h2 { color: #e50914; text-align: center; }
         label { display: block; margin-top: 10px; }
-        input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; background: #000; border: 1px solid #444; color: #fff; border-radius: 4px; }
+        input, select { width: 100%; padding: 10px; margin-top: 5px; background: #000; border: 1px solid #444; color: #fff; border-radius: 4px; box-sizing: border-box; }
         button { width: 100%; background: #e50914; color: #fff; padding: 12px; border: none; margin-top: 20px; font-weight: bold; cursor: pointer; border-radius: 4px; }
         button:hover { background: #b20710; }
-        #mensaje { text-align: center; margin-top: 15px; font-weight: bold; }
+        #mensaje { text-align: center; margin-top: 15px; font-weight: bold; font-size: 16px; min-height: 20px; }
     </style>
 </head>
 <body>
@@ -37,18 +37,17 @@
             <label for="imagen">Imagen del Producto:</label>
             <input type="file" id="imagen" accept="image/*" required>
 
-            <button type="submit" id="btnGuardar">Subir Producto</button>
+            <button type="button" id="btnGuardar">Subir Producto</button>
         </form>
         <p id="mensaje"></p>
     </div>
 
-    <!-- Firebase SDKs -->
+    <!-- Firebase Firestore SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addfDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // Tu configuración de Firebase
+        // Configuración de tu proyecto Firebase
         const firebaseConfig = {
           apiKey: "AIzaSyAD7sweEf1vOgG79WB-CqXJKF_iMgwz8Ag",
           authDomain: "blacksoul82.firebaseapp.com",
@@ -60,43 +59,67 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const storage = getStorage(app);
 
-        const form = document.getElementById("productForm");
+        // Tu clave API de ImgBB
+        const IMGBB_API_KEY = "132aceb58e574375de38fe57b54806c8";
+
+        const btnGuardar = document.getElementById("btnGuardar");
         const mensaje = document.getElementById("mensaje");
 
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            mensaje.style.color = "#fff";
-            mensaje.textContent = "Subiendo imagen y guardando producto...";
-
-            const nombre = document.getElementById("nombre").value;
+        btnGuardar.addEventListener("click", async () => {
+            const nombre = document.getElementById("nombre").value.trim();
             const categoria = document.getElementById("categoria").value;
-            const precio = parseFloat(document.getElementById("precio").value);
-            const imagenFile = document.getElementById("imagen").files[0];
+            const precioVal = document.getElementById("precio").value;
+            const imagenInput = document.getElementById("imagen");
+
+            if (!nombre || !precioVal || imagenInput.files.length === 0) {
+                mensaje.style.color = "#e50914";
+                mensaje.textContent = "Por favor, completa todos los campos y selecciona una imagen.";
+                return;
+            }
+
+            const precio = parseFloat(precioVal);
+            const imagenFile = imagenInput.files[0];
+
+            mensaje.style.color = "#ffff00";
+            mensaje.textContent = "⏳ Subiendo imagen desde la PC...";
 
             try {
-                // 1. Subir imagen a Firebase Storage
-                const storageRef = ref(storage, 'productos/' + Date.now() + '_' + imagenFile.name);
-                await uploadBytes(storageRef, imagenFile);
-                const imageUrl = await getDownloadURL(storageRef);
+                // 1. Enviar la imagen a ImgBB
+                const formData = new FormData();
+                formData.append("image", imagenFile);
 
-                // 2. Guardar datos en Firestore Database
+                const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                    method: "POST",
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (!data.success) {
+                    throw new Error("Error en ImgBB");
+                }
+
+                const imagenUrl = data.data.url;
+                mensaje.textContent = "⏳ Guardando producto en Firebase...";
+
+                // 2. Guardar los datos en Firestore
                 await addDoc(collection(db, "productos"), {
                     nombre: nombre,
                     categoria: categoria,
                     precio: precio,
-                    imagen: imageUrl,
+                    imagen: imagenUrl,
                     fecha: new Date()
                 });
 
                 mensaje.style.color = "#00ff00";
-                mensaje.textContent = "¡Producto subido con éxito al catálogo!";
-                form.reset();
+                mensaje.textContent = "✅ ¡Producto y foto subidos con éxito!";
+                document.getElementById("productForm").reset();
+
             } catch (error) {
-                console.error("Error al subir:", error);
+                console.error("Error completo:", error);
                 mensaje.style.color = "#e50914";
-                mensaje.textContent = "Hubo un error al subir el producto.";
+                mensaje.textContent = "❌ Error al subir: Revisa la consola (F12).";
             }
         });
     </script>
