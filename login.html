@@ -1,198 +1,235 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BLACK SOUL | Iniciar Sesión</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACK SOUL - Iniciar Sesión / Registro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    body {
-      background-image: linear-gradient(rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.92)), url('banner.jpg') !important;
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      color: #ffffff !important;
-      font-family: Arial, Helvetica, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+        body {
+            background-color: #0b0b0b;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('fondo-rock.jpg');
+            background-size: cover;
+            background-position: center;
+        }
 
-    header {
-      background-color: rgba(0, 0, 0, 0.95);
-      padding: 15px 7%;
-      border-bottom: 2px solid #e50914;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
-    }
+        .login-container {
+            background-color: #161616;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(255, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #333;
+        }
 
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
+        .login-container h2 {
+            text-align: center;
+            color: #ff1e1e;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-    nav a {
-      color: #cccccc !important;
-      text-decoration: none !important;
-      font-weight: bold !important;
-      font-size: 15px !important;
-      letter-spacing: 1px !important;
-      padding: 8px 18px !important;
-      border-radius: 4px !important;
-      transition: all 0.3s ease !important;
-    }
+        .login-container p {
+            text-align: center;
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
 
-    nav a:hover {
-      color: #ffffff !important;
-      background-color: rgba(229, 9, 20, 0.25) !important;
-      box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
-    }
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-    nav a.active {
-      color: #ffffff !important;
-      background-color: #e50914 !important;
-      box-shadow: 0 0 12px rgba(229, 9, 20, 0.7);
-    }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #ccc;
+        }
 
-    .login-container {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 130px 20px 60px 20px;
-    }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background-color: #222;
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
 
-    .login-box {
-      background-color: rgba(26, 26, 26, 0.92);
-      border: 1px solid #333333;
-      border-radius: 8px;
-      padding: 40px;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 4px 25px rgba(0,0,0,0.8);
-      text-align: center;
-    }
+        .form-group input:focus {
+            border-color: #ff1e1e;
+        }
 
-    .login-box h2 {
-      color: #e50914;
-      font-size: 30px;
-      margin-bottom: 10px;
-      letter-spacing: 1px;
-    }
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff1e1e;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background-color 0.3s;
+        }
 
-    .login-box p {
-      color: #aaaaaa;
-      font-size: 14px;
-      margin-bottom: 25px;
-    }
+        .btn-submit:hover {
+            background-color: #d01515;
+        }
 
-    .form-group {
-      text-align: left;
-      margin-bottom: 20px;
-    }
+        .toggle-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #aaa;
+        }
 
-    .form-group label {
-      display: block;
-      color: #dddddd;
-      font-size: 14px;
-      margin-bottom: 8px;
-      font-weight: bold;
-    }
+        .toggle-link a {
+            color: #ff1e1e;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-    .form-group input {
-      width: 100%;
-      padding: 12px;
-      background-color: #0b0b0b;
-      border: 1px solid #444444;
-      border-radius: 4px;
-      color: #ffffff;
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.3s ease;
-    }
+        .toggle-link a:hover {
+            text-decoration: underline;
+        }
 
-    .form-group input:focus {
-      border-color: #e50914;
-    }
-
-    .boton-submit {
-      width: 100%;
-      background-color: #e50914;
-      color: #ffffff;
-      padding: 12px;
-      border: none;
-      border-radius: 4px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: background-color 0.3s ease;
-    }
-
-    .boton-submit:hover {
-      background-color: #b20710;
-    }
-
-    footer {
-      background-color: #000000 !important;
-      text-align: center;
-      padding: 20px;
-      font-size: 13px;
-      color: #666666 !important;
-      border-top: 1px solid #141414;
-    }
-  </style>
+        #error-message {
+            color: #ff4d4d;
+            text-align: center;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="catalogo.html">Catálogo</a>
-      <a href="login.html" class="active">Iniciar sesión</a>
-      <a href="contactame.html">Contactos</a>
-    </nav>
-  </header>
+    <div class="login-container">
+        <h2 id="form-title">Iniciar Sesión</h2>
+        <p id="form-subtitle">Ingresa tus datos para acceder a tu cuenta.</p>
 
-  <main class="login-container">
-    <div class="login-box">
-      <h2>INICIAR SESIÓN</h2>
-      <p>Ingresa tus datos para acceder a tu cuenta.</p>
+        <div id="error-message"></div>
 
-      <form>
-        <div class="form-group">
-          <label for="email">Correo electrónico:</label>
-          <input type="email" id="email" placeholder="correo@ejemplo.com" required>
+        <form id="auth-form">
+            <div class="form-group">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" required placeholder="correo@ejemplo.com">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" required placeholder="Mínimo 6 caracteres">
+            </div>
+
+            <button type="submit" class="btn-submit" id="submit-btn">Ingresar</button>
+        </form>
+
+        <div class="toggle-link">
+            <span id="toggle-text">¿No tienes cuenta?</span> 
+            <a href="#" id="toggle-btn">Regístrate aquí</a>
         </div>
-
-        <div class="form-group">
-          <label for="password">Contraseña:</label>
-          <input type="password" id="password" placeholder="Mínimo 8 caracteres" required>
-        </div>
-
-        <button type="submit" class="boton-submit">INGRESAR</button>
-      </form>
     </div>
-  </main>
 
-  <footer>
-    <p>© 2026 BLACK SOUL | La música se lleva puesta.</p>
-  </footer>
+    <!-- Script de Firebase y lógica de autenticación -->
+    <script type="module">
+        // Importar la configuración de Firebase (asegúrate de que tu archivo firebase-config.js o similar esté configurado)
+        // O puedes pegar tu inicialización directamente aquí si lo prefieres:
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
+        // Configuración de tu proyecto Firebase (blacksoul82)
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY", // Reemplaza con tus credenciales de Firebase si no usas archivo externo
+            authDomain: "blacksoul82.firebaseapp.com",
+            projectId: "blacksoul82",
+            storageBucket: "blacksoul82.appspot.com",
+            messagingSenderId: "TU_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        let isRegistering = false;
+
+        const formTitle = document.getElementById('form-title');
+        const formSubtitle = document.getElementById('form-subtitle');
+        const submitBtn = document.getElementById('submit-btn');
+        const toggleText = document.getElementById('toggle-text');
+        const toggleBtn = document.getElementById('toggle-btn');
+        const authForm = document.getElementById('auth-form');
+        const errorMessage = document.getElementById('error-message');
+
+        // Cambiar entre Iniciar Sesión y Registro
+        toggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            isRegistering = !isRegistering;
+            errorMessage.textContent = "";
+
+            if (isRegistering) {
+                formTitle.textContent = "Registro";
+                formSubtitle.textContent = "Crea una nueva cuenta en BLACK SOUL.";
+                submitBtn.textContent = "Registrarse";
+                toggleText.textContent = "¿Ya tienes cuenta?";
+                toggleBtn.textContent = "Inicia sesión aquí";
+            } else {
+                formTitle.textContent = "Iniciar Sesión";
+                formSubtitle.textContent = "Ingresa tus datos para acceder a tu cuenta.";
+                submitBtn.textContent = "Ingresar";
+                toggleText.textContent = "¿No tienes cuenta?";
+                toggleBtn.textContent = "Regístrate aquí";
+            }
+        });
+
+        // Manejar el envío del formulario
+        authForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            errorMessage.textContent = "";
+
+            try {
+                if (isRegistering) {
+                    // Registro de usuario
+                    await createUserWithEmailAndPassword(auth, email, password);
+                    alert("¡Cuenta creada con éxito!");
+                    window.location.href = "catalogo.html"; // Redirigir al catálogo al registrarse
+                } else {
+                    // Inicio de sesión
+                    await signInWithEmailAndPassword(auth, email, password);
+                    alert("¡Bienvenido de nuevo a BLACK SOUL!");
+                    window.location.href = "catalogo.html"; // Redirigir al catálogo al iniciar sesión
+                }
+            } catch (error) {
+                console.p(error.code);
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessage.textContent = "Este correo ya está registrado.";
+                } else if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password') {
+                    errorMessage.textContent = "Correo o contraseña incorrectos.";
+                } else if (error.code === 'auth/weak-password') {
+                    errorMessage.textContent = "La contraseña debe tener al menos 6 caracteres.";
+                } else {
+                    errorMessage.textContent = "Ocurrió un error: " + error.message;
+                }
+            }
+        });
+    </script>
 </body>
 </html>
