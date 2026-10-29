@@ -210,6 +210,186 @@
       color: #666666 !important;
       border-top: 1px solid #141414;
     }
+
+    /* ESTILOS DEL CARRITO FLOTANTE Y PANEL LATERAL */
+    .cart-btn-floating {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: #e50914;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 22px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(229, 9, 20, 0.5);
+      z-index: 1001;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.2s ease;
+    }
+
+    .cart-btn-floating:hover {
+      transform: scale(1.08);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background-color: #ffffff;
+      color: #e50914;
+      font-weight: bold;
+      font-size: 12px;
+      border-radius: 50%;
+      padding: 3px 7px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+
+    .cart-modal {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 360px;
+      height: 100%;
+      background-color: #121212;
+      border-left: 2px solid #e50914;
+      box-shadow: -5px 0 25px rgba(0,0,0,0.9);
+      transition: right 0.3s ease;
+      z-index: 1002;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      color: #fff;
+    }
+
+    .cart-modal.active {
+      right: 0;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+      padding-bottom: 15px;
+    }
+
+    .cart-header h3 {
+      color: #e50914;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+
+    .close-cart {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      margin-top: 15px;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #222;
+    }
+
+    .cart-item img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .cart-item-details {
+      flex: 1;
+      margin-left: 12px;
+    }
+
+    .cart-item-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .cart-item-price {
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    .cart-item-qty {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 5px;
+    }
+
+    .btn-qty {
+      background-color: #262626;
+      color: #fff;
+      border: 1px solid #444;
+      width: 22px;
+      height: 22px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-delete {
+      background: none;
+      border: none;
+      color: #ff4d4d;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 5px;
+    }
+
+    .cart-footer {
+      border-top: 1px solid #333;
+      padding-top: 15px;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .btn-whatsapp {
+      width: 100%;
+      background-color: #25D366;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .btn-whatsapp:hover {
+      background-color: #1eb854;
+    }
   </style>
 </head>
 <body>
@@ -245,21 +425,27 @@
         <h4>Camiseta Rock Classic</h4>
         <p>100% algodón negro con estampado Vintage de alta calidad.</p>
         <span class="precio">$22.00</span>
-        <a href="#" class="boton-comprar">Comprar</a>
+        <button class="boton-comprar" onclick="addToCart('stat-1', 'Camiseta Rock Classic', 22.00, 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500')">
+          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
+        </button>
       </div>
       <div class="producto-card">
         <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500" alt="Camiseta Heavy Skull">
         <h4>Camiseta Heavy Skull</h4>
         <p>Corte entallado unisex con diseño gráfico rockero.</p>
         <span class="precio">$25.00</span>
-        <a href="#" class="boton-comprar">Comprar</a>
+        <button class="boton-comprar" onclick="addToCart('stat-2', 'Camiseta Heavy Skull', 25.00, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500')">
+          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
+        </button>
       </div>
       <div class="producto-card">
         <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500" alt="Top Biker Metal">
         <h4>Top Biker Metal</h4>
         <p>Top sin mangas ajuste cómodo ideal para conciertos.</p>
         <span class="precio">$20.00</span>
-        <a href="#" class="boton-comprar">Comprar</a>
+        <button class="boton-comprar" onclick="addToCart('stat-3', 'Top Biker Metal', 20.00, 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500')">
+          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
+        </button>
       </div>
     </div>
 
@@ -271,21 +457,27 @@
         <h4>Chaqueta Cuero Biker</h4>
         <p>Cuero sintético premium con cierres metálicos y forro interior.</p>
         <span class="precio">$95.00</span>
-        <a href="#" class="boton-comprar">Comprar</a>
+        <button class="boton-comprar" onclick="addToCart('stat-4', 'Chaqueta Cuero Biker', 95.00, 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500')">
+          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
+        </button>
       </div>
       <div class="producto-card">
         <img src="https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=500" alt="Chaqueta Denim Rock">
         <h4>Chaqueta Denim Rock</h4>
         <p>Chaqueta de mezclilla estilo cazadora rockera.</p>
         <span class="precio">$70.00</span>
-        <a href="#" class="boton-comprar">Comprar</a>
+        <button class="boton-comprar" onclick="addToCart('stat-5', 'Chaqueta Denim Rock', 70.00, 'https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=500')">
+          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
+        </button>
       </div>
       <div class="producto-card">
         <img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=500" alt="Chaleco Heavy Metal">
         <h4>Chaleco Heavy Metal</h4>
         <p>Chaleco de cuero oscuro perfecto para combinar con parches.</p>
         <span class="precio">$60.00</span>
-        <a href="#" class="boton-comprar">Comprar</a>
+        <button class="boton-comprar" onclick="addToCart('stat-6', 'Chaleco Heavy Metal', 60.00, 'https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=500')">
+          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
+        </button>
       </div>
     </div>
 
@@ -297,14 +489,18 @@
         <h4>Jeans Black Ripped</h4>
         <p>Jeans ajustados negros con desgastado estilo rock urbano.</p>
         <span class="precio">$45.00</span>
-        <a href="#" class="boton-comprar">Comprar</a>
+        <button class="boton-comprar" onclick="addToCart('stat-7', 'Jeans Black Ripped', 45.00, 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500')">
+          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
+        </button>
       </div>
       <div class="producto-card">
         <img src="https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=500" alt="Botas Combat Metal">
         <h4>Botas Combat Metal</h4>
         <p>Botas de cuero estilo militar con suela gruesa antideslizante.</p>
         <span class="precio">$110.00</span>
-        <a href="#" class="boton-comprar">Comprar</a>
+        <button class="boton-comprar" onclick="addToCart('stat-8', 'Botas Combat Metal', 110.00, 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=500')">
+          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
+        </button>
       </div>
     </div>
 
@@ -316,31 +512,63 @@
         <h4>Pulsera Picos & Remaches</h4>
         <p>Pulsera de cuero genuino con tachas metálicas.</p>
         <span class="precio">$12.00</span>
-        <a href="#" class="boton-comprar">Comprar</a>
+        <button class="boton-comprar" onclick="addToCart('stat-9', 'Pulsera Picos & Remaches', 12.00, 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500')">
+          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
+        </button>
       </div>
       <div class="producto-card">
         <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" alt="Anillo Rocker">
         <h4>Anillo Silver Skull</h4>
         <p>Anillo de acero quirúrgico resistente con detalles metálicos.</p>
         <span class="precio">$18.00</span>
-        <a href="#" class="boton-comprar">Comprar</a>
+        <button class="boton-comprar" onclick="addToCart('stat-10', 'Anillo Silver Skull', 18.00, 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500')">
+          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
+        </button>
       </div>
       <div class="producto-card">
         <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500" alt="Gorra Snapback Metal">
         <h4>Gorra Snapback Black</h4>
         <p>Gorra bordada negra con visera plana y broche ajustable.</p>
         <span class="precio">$15.00</span>
-        <a href="#" class="boton-comprar">Comprar</a>
+        <button class="boton-comprar" onclick="addToCart('stat-11', 'Gorra Snapback Black', 15.00, 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500')">
+          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
+        </button>
       </div>
     </div>
 
   </main>
 
+  <!-- Botón Flotante del Carrito -->
+  <button class="cart-btn-floating" id="open-cart-btn">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span class="cart-count" id="cart-count">0</span>
+  </button>
+
+  <!-- Panel Lateral del Carrito -->
+  <div class="cart-modal" id="cart-modal">
+    <div class="cart-header">
+      <h3><i class="fa-solid fa-skull"></i> TU CARRITO</h3>
+      <button class="close-cart" id="close-cart-btn">&times;</button>
+    </div>
+    <div class="cart-items" id="cart-items-container">
+      <!-- Los productos se cargan dinámicamente aquí -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cart-total-price">$0.00</span>
+      </div>
+      <button class="btn-whatsapp" id="send-whatsapp-btn">
+        <i class="fa-brands fa-whatsapp"></i> Realizar Pedido por WhatsApp
+      </button>
+    </div>
+  </div>
+
   <footer>
     <p>© 2026 BLACK SOUL | La música se lleva puesta.</p>
   </footer>
 
-  <!-- Firebase SDKs y script para cargar productos dinámicamente -->
+  <!-- Firebase SDKs y Lógica Completa del Carrito -->
   <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -358,6 +586,7 @@
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
 
+      // Cargar productos creados desde Firebase Firestore
       async function cargarProductosFirebase() {
           try {
               const q = query(collection(db, "productos"), orderBy("fecha", "desc"));
@@ -365,11 +594,10 @@
 
               querySnapshot.forEach((doc) => {
                   const producto = doc.data();
+                  const idDoc = doc.id;
 
-                  // Identifica en qué grilla colocar el producto según su categoría
                   let contenedor = document.getElementById(`grid-${producto.categoria}`);
                   
-                  // Si no encuentra la categoría exacta, lo coloca en la primera grilla disponible
                   if (!contenedor) {
                       contenedor = document.querySelector('.productos-grid');
                   }
@@ -382,7 +610,9 @@
                           <h4>${producto.nombre}</h4>
                           <p>Categoría: ${producto.categoria}</p>
                           <span class="precio">$${parseFloat(producto.precio).toFixed(2)}</span>
-                          <a href="#" class="boton-comprar">Comprar</a>
+                          <button class="boton-comprar" onclick="addToCart('${idDoc}', '${producto.nombre}', ${producto.precio}, '${producto.imagen}')">
+                            <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
+                          </button>
                       `;
                       contenedor.appendChild(card);
                   }
@@ -393,6 +623,123 @@
       }
 
       window.addEventListener('DOMContentLoaded', cargarProductosFirebase);
+
+      // --- LÓGICA DEL CARRITO DE COMPRAS Y WHATSAPP ---
+      const WHATSAPP_PHONE = "593999999999"; // Reemplaza por tu número de WhatsApp real
+
+      let cart = JSON.parse(localStorage.getItem('blacksoul_cart')) || [];
+
+      const openCartBtn = document.getElementById('open-cart-btn');
+      const closeCartBtn = document.getElementById('close-cart-btn');
+      const cartModal = document.getElementById('cart-modal');
+      const cartItemsContainer = document.getElementById('cart-items-container');
+      const cartCount = document.getElementById('cart-count');
+      const cartTotalPrice = document.getElementById('cart-total-price');
+      const sendWhatsappBtn = document.getElementById('send-whatsapp-btn');
+
+      openCartBtn.addEventListener('click', () => cartModal.classList.add('active'));
+      closeCartBtn.addEventListener('click', () => cartModal.classList.remove('active'));
+
+      window.addToCart = function(id, title, price, imageUrl) {
+          const existingItem = cart.find(item => item.id === id);
+          if (existingItem) {
+              existingItem.quantity += 1;
+          } else {
+              cart.push({
+                  id: id,
+                  title: title,
+                  price: parseFloat(price),
+                  imageUrl: imageUrl,
+                  quantity: 1
+              });
+          }
+          updateCart();
+          cartModal.classList.add('active');
+      };
+
+      window.changeQuantity = function(id, delta) {
+          const item = cart.find(item => item.id === id);
+          if (item) {
+              item.quantity += delta;
+              if (item.quantity <= 0) {
+                  cart = cart.filter(i => i.id !== id);
+              }
+          }
+          updateCart();
+      };
+
+      window.removeFromCart = function(id) {
+          cart = cart.filter(item => item.id !== id);
+          updateCart();
+      };
+
+      function updateCart() {
+          localStorage.setItem('blacksoul_cart', JSON.stringify(cart));
+          cartItemsContainer.innerHTML = '';
+          
+          let total = 0;
+          let totalCount = 0;
+
+          if (cart.length === 0) {
+              cartItemsContainer.innerHTML = '<p style="text-align:center; color:#aaa; margin-top:30px;">Tu carrito está vacío.</p>';
+          } else {
+              cart.forEach(item => {
+                  total += item.price * item.quantity;
+                  totalCount += item.quantity;
+
+                  const itemElement = document.createElement('div');
+                  itemElement.classList.add('cart-item');
+                  itemElement.innerHTML = `
+                      <img src="${item.imageUrl}" alt="${item.title}">
+                      <div class="cart-item-details">
+                          <div class="cart-item-title">${item.title}</div>
+                          <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                          <div class="cart-item-qty">
+                              <button class="btn-qty" onclick="changeQuantity('${item.id}', -1)">-</button>
+                              <span>${item.quantity}</span>
+                              <button class="btn-qty" onclick="changeQuantity('${item.id}', 1)">+</button>
+                          </div>
+                      </div>
+                      <button class="btn-delete" onclick="removeFromCart('${item.id}')"><i class="fa-solid fa-trash-can"></i></button>
+                  `;
+                  cartItemsContainer.appendChild(itemElement);
+              });
+          }
+
+          cartCount.textContent = totalCount;
+          cartTotalPrice.textContent = `$${total.toFixed(2)}`;
+      }
+
+      sendWhatsappBtn.addEventListener('click', () => {
+          if (cart.length === 0) {
+              alert("Tu carrito está vacío. Añade algunos productos antes de realizar el pedido.");
+              return;
+          }
+
+          let message = "🤘 *NUEVO PEDIDO - BLACK SOUL* 🤘\n\n";
+          message += "Hola, me gustaría realizar el siguiente pedido:\n\n";
+
+          let total = 0;
+          cart.forEach((item, index) => {
+              const subtotal = item.price * item.quantity;
+              total += subtotal;
+              message += `${index + 1}. *${item.title}*\n`;
+              message += `   - Cantidad: ${item.quantity}\n`;
+              message += `   - Precio unitario: $${item.price.toFixed(2)}\n`;
+              message += `   - Subtotal: $${subtotal.toFixed(2)}\n\n`;
+          });
+
+          message += `-------------------------------\n`;
+          message += `💰 *TOTAL A PAGAR: $${total.toFixed(2)}*\n\n`;
+          message += "¡Quedo a la espera de confirmación para el pago y envío!";
+
+          const encodedMessage = encodeURIComponent(message);
+          const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodedMessage}`;
+
+          window.open(whatsappUrl, '_blank');
+      });
+
+      updateCart();
   </script>
 
 </body>
