@@ -31,7 +31,7 @@
       padding: 15px 7%;
       border-bottom: 2px solid #e50914;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       position: fixed;
       top: 0;
@@ -68,6 +68,16 @@
       color: #ffffff !important;
       background-color: #e50914 !important;
       box-shadow: 0 0 12px rgba(229, 9, 20, 0.7);
+    }
+
+    .user-info {
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    .user-info span {
+      color: #e50914;
+      font-weight: bold;
     }
 
     /* CONTENEDOR PRINCIPAL */
@@ -402,6 +412,9 @@
       <a href="login.html">Iniciar sesión</a>
       <a href="contactame.html">Contactos</a>
     </nav>
+    <div class="user-info" id="user-info-display">
+      Verificando sesión...
+    </div>
   </header>
 
   <!-- CONTENIDO DEL CATÁLOGO POR CATEGORÍAS -->
@@ -419,122 +432,19 @@
 
     <!-- CATEGORÍA 1: CAMISETAS -->
     <h3 id="camisetas" class="categoria-titulo">Camisetas & Tops</h3>
-    <div class="productos-grid" id="grid-Camisetas">
-      <div class="producto-card">
-        <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500" alt="Camiseta Rock Classic">
-        <h4>Camiseta Rock Classic</h4>
-        <p>100% algodón negro con estampado Vintage de alta calidad.</p>
-        <span class="precio">$22.00</span>
-        <button class="boton-comprar" onclick="addToCart('stat-1', 'Camiseta Rock Classic', 22.00, 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500')">
-          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
-        </button>
-      </div>
-      <div class="producto-card">
-        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500" alt="Camiseta Heavy Skull">
-        <h4>Camiseta Heavy Skull</h4>
-        <p>Corte entallado unisex con diseño gráfico rockero.</p>
-        <span class="precio">$25.00</span>
-        <button class="boton-comprar" onclick="addToCart('stat-2', 'Camiseta Heavy Skull', 25.00, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500')">
-          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
-        </button>
-      </div>
-      <div class="producto-card">
-        <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500" alt="Top Biker Metal">
-        <h4>Top Biker Metal</h4>
-        <p>Top sin mangas ajuste cómodo ideal para conciertos.</p>
-        <span class="precio">$20.00</span>
-        <button class="boton-comprar" onclick="addToCart('stat-3', 'Top Biker Metal', 20.00, 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500')">
-          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
-        </button>
-      </div>
-    </div>
+    <div class="productos-grid" id="grid-Camisetas"></div>
 
     <!-- CATEGORÍA 2: CHAQUETAS -->
     <h3 id="chaquetas" class="categoria-titulo">Chaquetas & Abrigos</h3>
-    <div class="productos-grid" id="grid-Chaquetas">
-      <div class="producto-card">
-        <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500" alt="Chaqueta Cuero Biker">
-        <h4>Chaqueta Cuero Biker</h4>
-        <p>Cuero sintético premium con cierres metálicos y forro interior.</p>
-        <span class="precio">$95.00</span>
-        <button class="boton-comprar" onclick="addToCart('stat-4', 'Chaqueta Cuero Biker', 95.00, 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500')">
-          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
-        </button>
-      </div>
-      <div class="producto-card">
-        <img src="https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=500" alt="Chaqueta Denim Rock">
-        <h4>Chaqueta Denim Rock</h4>
-        <p>Chaqueta de mezclilla estilo cazadora rockera.</p>
-        <span class="precio">$70.00</span>
-        <button class="boton-comprar" onclick="addToCart('stat-5', 'Chaqueta Denim Rock', 70.00, 'https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=500')">
-          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
-        </button>
-      </div>
-      <div class="producto-card">
-        <img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=500" alt="Chaleco Heavy Metal">
-        <h4>Chaleco Heavy Metal</h4>
-        <p>Chaleco de cuero oscuro perfecto para combinar con parches.</p>
-        <span class="precio">$60.00</span>
-        <button class="boton-comprar" onclick="addToCart('stat-6', 'Chaleco Heavy Metal', 60.00, 'https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=500')">
-          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
-        </button>
-      </div>
-    </div>
+    <div class="productos-grid" id="grid-Chaquetas"></div>
 
     <!-- CATEGORÍA 3: PANTALONES Y CALZADO -->
     <h3 id="pantalones" class="categoria-titulo">Pantalones & Calzado</h3>
-    <div class="productos-grid" id="grid-Calzado">
-      <div class="producto-card">
-        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500" alt="Jeans Black Ripped">
-        <h4>Jeans Black Ripped</h4>
-        <p>Jeans ajustados negros con desgastado estilo rock urbano.</p>
-        <span class="precio">$45.00</span>
-        <button class="boton-comprar" onclick="addToCart('stat-7', 'Jeans Black Ripped', 45.00, 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500')">
-          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
-        </button>
-      </div>
-      <div class="producto-card">
-        <img src="https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=500" alt="Botas Combat Metal">
-        <h4>Botas Combat Metal</h4>
-        <p>Botas de cuero estilo militar con suela gruesa antideslizante.</p>
-        <span class="precio">$110.00</span>
-        <button class="boton-comprar" onclick="addToCart('stat-8', 'Botas Combat Metal', 110.00, 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=500')">
-          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
-        </button>
-      </div>
-    </div>
+    <div class="productos-grid" id="grid-Calzado"></div>
 
     <!-- CATEGORÍA 4: ACCESORIOS -->
     <h3 id="accesorios" class="categoria-titulo">Accesorios</h3>
-    <div class="productos-grid" id="grid-Accesorios">
-      <div class="producto-card">
-        <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500" alt="Pulsera Picos & Remaches">
-        <h4>Pulsera Picos & Remaches</h4>
-        <p>Pulsera de cuero genuino con tachas metálicas.</p>
-        <span class="precio">$12.00</span>
-        <button class="boton-comprar" onclick="addToCart('stat-9', 'Pulsera Picos & Remaches', 12.00, 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500')">
-          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
-        </button>
-      </div>
-      <div class="producto-card">
-        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" alt="Anillo Rocker">
-        <h4>Anillo Silver Skull</h4>
-        <p>Anillo de acero quirúrgico resistente con detalles metálicos.</p>
-        <span class="precio">$18.00</span>
-        <button class="boton-comprar" onclick="addToCart('stat-10', 'Anillo Silver Skull', 18.00, 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500')">
-          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
-        </button>
-      </div>
-      <div class="producto-card">
-        <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500" alt="Gorra Snapback Metal">
-        <h4>Gorra Snapback Black</h4>
-        <p>Gorra bordada negra con visera plana y broche ajustable.</p>
-        <span class="precio">$15.00</span>
-        <button class="boton-comprar" onclick="addToCart('stat-11', 'Gorra Snapback Black', 15.00, 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500')">
-          <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
-        </button>
-      </div>
-    </div>
+    <div class="productos-grid" id="grid-Accesorios"></div>
 
   </main>
 
@@ -568,9 +478,10 @@
     <p>© 2026 BLACK SOUL | La música se lleva puesta.</p>
   </footer>
 
-  <!-- Firebase SDKs y Lógica Completa del Carrito -->
+  <!-- Firebase SDKs y Lógica del Sistema -->
   <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
       import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
       // Configuración de Firebase de BLACK SOUL
@@ -584,9 +495,25 @@
       };
 
       const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
       const db = getFirestore(app);
 
-      // Cargar productos creados desde Firebase Firestore
+      let usuarioActual = null;
+      const userInfoDisplay = document.getElementById('user-info-display');
+
+      // Verificar si el usuario ha iniciado sesión
+      onAuthStateChanged(auth, (user) => {
+          if (user) {
+              usuarioActual = user;
+              userInfoDisplay.innerHTML = `Sesión: <span>${user.email}</span>`;
+          } else {
+              userInfoDisplay.innerHTML = `<span>No has iniciado sesión</span>`;
+              alert("Debes iniciar sesión para poder comprar en BLACK SOUL.");
+              window.location.href = "login.html";
+          }
+      });
+
+      // Cargar productos desde Firebase Firestore de forma segura
       async function cargarProductosFirebase() {
           try {
               const q = query(collection(db, "productos"), orderBy("fecha", "desc"));
@@ -596,7 +523,8 @@
                   const producto = doc.data();
                   const idDoc = doc.id;
 
-                  let contenedor = document.getElementById(`grid-${producto.categoria}`);
+                  let catId = producto.categoria ? producto.categoria.trim() : "";
+                  let contenedor = document.getElementById(`grid-${catId}`);
                   
                   if (!contenedor) {
                       contenedor = document.querySelector('.productos-grid');
@@ -608,7 +536,7 @@
                       card.innerHTML = `
                           <img src="${producto.imagen}" alt="${producto.nombre}">
                           <h4>${producto.nombre}</h4>
-                          <p>Categoría: ${producto.categoria}</p>
+                          <p>Categoría: ${producto.categoria || 'General'}</p>
                           <span class="precio">$${parseFloat(producto.precio).toFixed(2)}</span>
                           <button class="boton-comprar" onclick="addToCart('${idDoc}', '${producto.nombre}', ${producto.precio}, '${producto.imagen}')">
                             <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
@@ -625,7 +553,7 @@
       window.addEventListener('DOMContentLoaded', cargarProductosFirebase);
 
       // --- LÓGICA DEL CARRITO DE COMPRAS Y WHATSAPP ---
-      const WHATSAPP_PHONE = "593992667548"; // Reemplaza por tu número de WhatsApp real
+      const WHATSAPP_PHONE = "593992667548";
 
       let cart = JSON.parse(localStorage.getItem('blacksoul_cart')) || [];
 
@@ -641,6 +569,12 @@
       closeCartBtn.addEventListener('click', () => cartModal.classList.remove('active'));
 
       window.addToCart = function(id, title, price, imageUrl) {
+          if (!usuarioActual) {
+              alert("Por favor inicia sesión para agregar productos al carrito.");
+              window.location.href = "login.html";
+              return;
+          }
+
           const existingItem = cart.find(item => item.id === id);
           if (existingItem) {
               existingItem.quantity += 1;
@@ -687,7 +621,7 @@
                   total += item.price * item.quantity;
                   totalCount += item.quantity;
 
-                  const itemElement = document.crSSeateElement('div');
+                  const itemElement = document.createElement('div');
                   itemElement.classList.add('cart-item');
                   itemElement.innerHTML = `
                       <img src="${item.imageUrl}" alt="${item.title}">
@@ -711,12 +645,19 @@
       }
 
       sendWhatsappBtn.addEventListener('click', () => {
+          if (!usuarioActual) {
+              alert("Debes iniciar sesión para enviar tu pedido.");
+              window.location.href = "login.html";
+              return;
+          }
+
           if (cart.length === 0) {
               alert("Tu carrito está vacío. Añade algunos productos antes de realizar el pedido.");
               return;
           }
 
           let message = "🤘 *NUEVO PEDIDO - BLACK SOUL* 🤘\n\n";
+          message += `👤 *Cliente:* ${usuarioActual.email}\n`;
           message += "Hola, me gustaría realizar el siguiente pedido:\n\n";
 
           let total = 0;
