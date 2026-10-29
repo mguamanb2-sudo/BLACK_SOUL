@@ -28,7 +28,7 @@
     /* ENCABEZADO */
     header {
       background-color: rgba(0, 0, 0, 0.95);
-      padding: 15px 7%;
+      padding: 15px 5%;
       border-bottom: 2px solid #e50914;
       display: flex;
       justify-content: space-between;
@@ -44,7 +44,8 @@
     nav {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 15px;
+      align-items: center;
     }
 
     nav a {
@@ -53,7 +54,7 @@
       font-weight: bold !important;
       font-size: 15px !important;
       letter-spacing: 1px !important;
-      padding: 8px 18px !important;
+      padding: 8px 15px !important;
       border-radius: 4px !important;
       transition: all 0.3s ease !important;
     }
@@ -70,14 +71,34 @@
       box-shadow: 0 0 12px rgba(229, 9, 20, 0.7);
     }
 
-    .user-info {
+    .user-panel {
+      display: flex;
+      align-items: center;
+      gap: 15px;
       font-size: 13px;
       color: #aaa;
     }
 
-    .user-info span {
+    .user-panel span {
       color: #e50914;
       font-weight: bold;
+    }
+
+    .btn-logout {
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #555;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .btn-logout:hover {
+      background-color: #e50914;
+      border-color: #e50914;
     }
 
     /* CONTENEDOR PRINCIPAL */
@@ -409,11 +430,11 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="catalogo.html" class="active">Catálogo</a>
-      <a href="login.html">Iniciar sesión</a>
+      <a href="login.html" id="nav-login">Iniciar sesión</a>
       <a href="contactame.html">Contactos</a>
     </nav>
-    <div class="user-info" id="user-info-display">
-      Verificando sesión...
+    <div class="user-panel" id="user-panel">
+      <!-- Aquí se renderiza dinámicamente el usuario y el botón de cerrar sesión -->
     </div>
   </header>
 
@@ -481,7 +502,7 @@
   <!-- Firebase SDKs y Lógica del Sistema -->
   <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
       import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
       // Configuración de Firebase de BLACK SOUL
@@ -499,33 +520,62 @@
       const db = getFirestore(app);
 
       let usuarioActual = null;
-      const userInfoDisplay = document.getElementById('user-info-display');
+      const navLogin = document.getElementById('nav-login');
+      const userPanel = document.getElementById('user-panel');
 
       // Verificar si el usuario ha iniciado sesión
       onAuthStateChanged(auth, (user) => {
           if (user) {
               usuarioActual = user;
-              userInfoDisplay.innerHTML = `Sesión: <span>${user.email}</span>`;
+              // Ocultar botón "Iniciar sesión" del menú principal
+              if (navLogin) navLogin.style.display = 'none';
+              
+              // Mostrar usuario y botón de Cerrar sesión en la esquina superior derecha
+              userPanel.innerHTML = `
+                  <span>${user.email}</span>
+                  <button class="btn-logout" id="logout-btn">Cerrar sesión</button>
+              `;
+
+              // Asignar evento al botón de Cerrar sesión
+              document.getElementById('logout-btn').addEventListener('click', async () => {
+                  try {
+                      await signOut(auth);
+                      localStorage.removeItem('blacksoul_cart');
+                      window.location.href = "login.html";
+                  } catch (error) {
+                      console.error("Error al cerrar sesión:", error);
+                  }
+              });
+
           } else {
-              userInfoDisplay.innerHTML = `<span>No has iniciado sesión</span>`;
+              usuarioActual = null;
+              if (navLogin) navLogin.style.display = 'block';
+              userPanel.innerHTML = `<span>No has iniciado sesión</span>`;
               alert("Debes iniciar sesión para poder comprar en BLACK SOUL.");
               window.location.href = "login.html";
           }
       });
 
-      // Cargar productos desde Firebase Firestore de forma segura
+      // Cargar productos desde Firebase Firestore asegurando que siempre se visualicen
       async function cargarProductosFirebase() {
           try {
               const q = query(collection(db, "productos"), orderBy("fecha", "desc"));
               const querySnapshot = await getDocs(q);
 
-              querySnapshot.forEach((doc) => {
-                  const producto = doc.data();
-                  const idDoc = doc.id;
+              if (querySnapshot.empty) {
+                  console.log("No hay productos registrados en Firestore.");
+                  return;
+              }
 
-                  let catId = producto.categoria ? producto.categoria.trim() : "";
-                  let contenedor = document.getElementById(`grid-${catId}`);
+              querySnapshot.forEach((docSnap) => {
+                  const producto = docSnap.data();
+                  const idDoc = docSnap.id;
+
+                  // Limpiar y formatear la categoría para buscar su grilla correspondiente
+                  let categoriaRaw = producto.categoria ? producto.categoria.trim() : "Camisetas";
+                  let contenedor = document.getElementById(`grid-${categoriaRaw}`);
                   
+                  // Si la categoría no coincide exactamente con los IDs, se asigna a la primera grilla disponible (Camisetas)
                   if (!contenedor) {
                       contenedor = document.querySelector('.productos-grid');
                   }
