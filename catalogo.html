@@ -625,7 +625,7 @@
       window.addEventListener('DOMContentLoaded', cargarProductosFirebase);
 
       // --- LÓGICA DEL CARRITO DE COMPRAS Y WHATSAPP ---
-      const WHATSAPP_PHONE = "593999999999"; // Reemplaza por tu número de WhatsApp real
+      const WHATSAPP_PHONE = "593992667548"; // Reemplaza por tu número de WhatsApp real
 
       let cart = JSON.parse(localStorage.getItem('blacksoul_cart')) || [];
 
@@ -687,7 +687,7 @@
                   total += item.price * item.quantity;
                   totalCount += item.quantity;
 
-                  const itemElement = document.createElement('div');
+                  const itemElement = document.crSSeateElement('div');
                   itemElement.classList.add('cart-item');
                   itemElement.innerHTML = `
                       <img src="${item.imageUrl}" alt="${item.title}">
